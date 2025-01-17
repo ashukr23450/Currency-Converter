@@ -19,4 +19,18 @@ for (let select of dropdowns) {
             newOption.selected = " selected"
         }
     }
+    select.addEventListener("change" , (evt)=>{
+        updateFlag(evt.target)
+    })
+}
+
+const updateFlag = (element) =>{
+    let currCode = element.value;
+    console.log(currCode)
+    let countryCode = countryList[currCode];
+    console.log(countryCode)
+    let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png` ;
+    let img = element.parentElement.querySelector("img");
+    img.src = newSrc ;
+
 }
