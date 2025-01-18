@@ -33,4 +33,17 @@ const updateFlag = (element) =>{
     let img = element.parentElement.querySelector("img");
     img.src = newSrc ;
     
-}
+};
+
+btn.addEventListener("click" , (evt)=>{
+    evt.preventDefault();
+    let amount = document.querySelector(".amount input")
+    let amtVal = amount.value;
+    if (amtVal === "" || amtVal < 1){
+        amtVal = 1 ;
+        amtVal.value = "1";
+    }
+
+    let URL = `${BASE_URL}/${fromCurr}/${toCurr}.json`
+
+})
