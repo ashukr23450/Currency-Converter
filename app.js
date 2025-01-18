@@ -4,6 +4,7 @@ const dropdowns = document.querySelectorAll(".dropdown select");
 const btn = document.querySelector("form button");
 const fromCurr = document.querySelector(".from select") ;
 const toCurr = document.querySelector(".to select") ;
+let msg = document.querySelector(".msg");
 
 for (let select of dropdowns) {
     for (currCode in countryList) {
@@ -27,7 +28,6 @@ for (let select of dropdowns) {
 
 const updateFlag = (element) =>{
     let currCode = element.value;
-    console.log(currCode);
     let countryCode = countryList[currCode];
     let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png` ;
     let img = element.parentElement.querySelector("img");
@@ -35,7 +35,7 @@ const updateFlag = (element) =>{
     
 };
 
-btn.addEventListener("click" , (evt)=>{
+btn.addEventListener("click" , async (evt)=>{
     evt.preventDefault();
     let amount = document.querySelector(".amount input")
     let amtVal = amount.value;
@@ -44,6 +44,11 @@ btn.addEventListener("click" , (evt)=>{
         amtVal.value = "1";
     }
 
-    let URL = `${BASE_URL}/${fromCurr}/${toCurr}.json`
+    // console.log(fromCurr.value , toCurr.value)
+    let URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json` ;
+    let response = await fetch (URL);
+    let data = await response.json();
+    let rate = data[toCurr.value.toLowerCase()];
 
+    let finalAmount = amount*
 })
