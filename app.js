@@ -6,6 +6,8 @@ const fromCurr = document.querySelector(".from select") ;
 const toCurr = document.querySelector(".to select") ;
 let msg = document.querySelector(".msg");
 
+
+
 for (let select of dropdowns) {
     for (currCode in countryList) {
     let newOption = document.createElement("option");
@@ -26,6 +28,24 @@ for (let select of dropdowns) {
     })
 }
 
+
+const updateExchangeRate = async ()=>{
+    let amount = document.querySelector(".amount input")
+    let amtVal = amount.value;
+    if (amtVal === "" || amtVal < 1){
+        amtVal = 1 ;
+        amtVal.value = "1";
+    }
+
+    let URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json` ;
+    let response = await fetch (URL);
+    let data = await response.json();
+    let rate = data[toCurr.value.toLowerCase()];
+
+    let finalAmount = amtVal*rate;
+    msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value} `
+}
+
 const updateFlag = (element) =>{
     let currCode = element.value;
     let countryCode = countryList[currCode];
@@ -37,19 +57,10 @@ const updateFlag = (element) =>{
 
 btn.addEventListener("click" , async (evt)=>{
     evt.preventDefault();
-    let amount = document.querySelector(".amount input")
-    let amtVal = amount.value;
-    if (amtVal === "" || amtVal < 1){
-        amtVal = 1 ;
-        amtVal.value = "1";
-    }
+    updateExchangeRate()
+    
+});
 
-    // console.log(fromCurr.value , toCurr.value)
-    let URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json` ;
-    let response = await fetch (URL);
-    let data = await response.json();
-    let rate = data[toCurr.value.toLowerCase()];
-
-    let finalAmount = amtVal*rate;
-    msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value} `
+window.addEventListener("load" , ()=>{
+    updateExchangeRate();
 })
