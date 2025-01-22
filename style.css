@@ -20,6 +20,7 @@ body {
     min-height: 45vh;
 }
 
+
 form{
     margin: 2rem 0 1rem 0;
 }
@@ -34,12 +35,14 @@ input{
 }
 
 
+
 form input{
     border: 1px solid lightgrey;
     font-size: 1rem;
     height: 3rem;
     padding-left:0.5rem;
 }
+
 
 .dropdown{
     display: flex;
