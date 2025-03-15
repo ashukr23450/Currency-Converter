@@ -54,7 +54,6 @@ form input{
 .select-container  img{
     max-width: 2rem ;
 }
-
 .select-container{
     display: flex;
     width: 6rem;
